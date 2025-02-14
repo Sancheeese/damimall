@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: damimall-coupon
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: damimall-coupon
+        group: dev
+        extension-configs:
+          - data-id: datasource.yml
+            group: dev
+            refresh: true
+

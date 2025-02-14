@@ -1,0 +1,22 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: damimall-order
+  datasource:
+    class-driver-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/damimall_oms?serverTimeZone=UTC
+    username: root
+    password: 159357qazQAZ
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+

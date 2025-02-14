@@ -1,0 +1,22 @@
+server:
+  port: 88
+
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: baidu_route
+#          uri: https://www.baidu.com
+#          predicates:
+#            - Query=where,baidu
+#
+#        - id: qq_route
+#          uri: https://www.qq.com
+#          predicates:
+#            - Query=where,qq
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway,health,info
