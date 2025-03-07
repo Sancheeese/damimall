@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.example.common.to.SkuReductionTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -83,6 +84,13 @@ public class SkuFullReductionController {
     // @RequiresPermissions("coupon:skufullreduction:delete")
     public R delete(@RequestBody Long[] ids){
 		skuFullReductionService.removeByIds(Arrays.asList(ids));
+
+        return R.ok();
+    }
+
+    @RequestMapping("/saveForFeign")
+    public R saveForFeign(@RequestBody SkuReductionTo skuReductionTo){
+        skuFullReductionService.saveForFeign(skuReductionTo);
 
         return R.ok();
     }

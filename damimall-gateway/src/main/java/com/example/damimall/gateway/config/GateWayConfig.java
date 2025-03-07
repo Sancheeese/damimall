@@ -17,7 +17,6 @@ public class GateWayConfig {
         corsConfig.addAllowedOriginPattern("*");  // 允许所有域名
         corsConfig.addAllowedHeader("*");  // 允许所有请求头
         corsConfig.addAllowedMethod("*");  // 允许所有请求方法
-        System.out.println("OKKKKKKKKKK");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);  // 对所有路径配置 CORS

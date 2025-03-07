@@ -1,5 +1,6 @@
 package com.example.damimall.product.controller;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -15,7 +16,6 @@ import com.example.damimall.product.entity.SkuInfoEntity;
 import com.example.damimall.product.service.SkuInfoService;
 import com.example.common.utils.PageUtils;
 import com.example.common.utils.R;
-
 
 
 /**
@@ -37,8 +37,8 @@ public class SkuInfoController {
     @RequestMapping("/list")
     // @RequiresPermissions("product:skuinfo:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = skuInfoService.queryPage(params);
-
+//        PageUtils page = skuInfoService.queryPage(params);
+        PageUtils page = skuInfoService.listByCondition(params);
         return R.ok().put("page", page);
     }
 
@@ -85,6 +85,14 @@ public class SkuInfoController {
 		skuInfoService.removeByIds(Arrays.asList(skuIds));
 
         return R.ok();
+    }
+
+    @RequestMapping("/queryOne")
+    // @RequiresPermissions("product:skuinfo:delete")
+    public R queryOneById(@RequestParam Long skuId){
+        SkuInfoEntity skuInfo = skuInfoService.queryOneById(skuId);
+
+        return R.ok().put("skuInfo", skuInfo);
     }
 
 }

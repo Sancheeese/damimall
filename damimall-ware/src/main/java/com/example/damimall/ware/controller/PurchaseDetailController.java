@@ -37,7 +37,7 @@ public class PurchaseDetailController {
     @RequestMapping("/list")
     // @RequiresPermissions("ware:purchasedetail:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = purchaseDetailService.queryPage(params);
+        PageUtils page = purchaseDetailService.listByCondition(params);
 
         return R.ok().put("page", page);
     }
@@ -60,7 +60,7 @@ public class PurchaseDetailController {
     @RequestMapping("/save")
     // @RequiresPermissions("ware:purchasedetail:save")
     public R save(@RequestBody PurchaseDetailEntity purchaseDetail){
-		purchaseDetailService.save(purchaseDetail);
+		purchaseDetailService.savePurchaseDetail(purchaseDetail);
 
         return R.ok();
     }

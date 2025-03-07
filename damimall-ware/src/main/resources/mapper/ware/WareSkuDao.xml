@@ -13,5 +13,10 @@
         <result property="stockLocked" column="stock_locked"/>
     </resultMap>
 
+    <select id="queryStockById" resultType="com.example.damimall.ware.entity.WareSkuEntity">
+        SELECT sku_id, sku_name, SUM(stock - stock_locked) as stock FROM `wms_ware_sku`
+        where sku_id = #{id}
+    </select>
+
 
 </mapper>

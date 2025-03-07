@@ -22,6 +22,8 @@
         <module>renren-fast</module>
         <module>renren-generator</module>
         <module>damimall-gateway</module>
+        <module>damimall-thirdpart</module>
+        <module>damimall-search</module>
     </modules>
 
 <!--    默认jdk1.8-->

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.common.utils.PageUtils;
 import com.example.damimall.product.entity.ProductAttrValueEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,11 @@ import java.util.Map;
 public interface ProductAttrValueService extends IService<ProductAttrValueEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveProductAttrValue(ProductAttrValueEntity productAttrValue);
+
+    void updateSpuAttr(Long spuId, List<ProductAttrValueEntity> productAttrValues);
+
+    List<ProductAttrValueEntity> searchAvailableAttrs(Long spuId);
 }
 

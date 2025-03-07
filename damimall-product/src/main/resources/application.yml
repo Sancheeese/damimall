@@ -1,7 +1,9 @@
 server:
-  port: 10001
+  port: 13000
 
 spring:
+  main:
+    allow-circular-references: true
   application:
     name: damimall-product
   datasource:
@@ -13,10 +15,24 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  thymeleaf:
+    cache: false
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
     db-config:
       id-type: auto
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.baomidou.mybatisplus: DEBUG
+    org.apache.ibatis: DEBUG
+    java.sql: DEBUG
+
+
 

@@ -1,5 +1,8 @@
 package com.example.damimall.product.service.impl;
 
+import com.example.damimall.product.dao.CategoryBrandRelationDao;
+import com.example.damimall.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -20,6 +23,8 @@ import com.example.damimall.product.service.CategoryService;
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+    @Autowired
+    CategoryBrandRelationDao categoryBrandRelationDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -75,7 +80,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public void saveOne(CategoryEntity category) {
         if (category.getProductCount() == null) category.setProductCount(0);
+        if (category.getSort() == null) category.setSort(0);
         save(category);
+    }
+
+    @Override
+    public void updateCat(CategoryEntity category) {
+        // 更新自己的表
+        updateById(category);
+
+        // 更新与之相关的表
+        categoryBrandRelationDao.updateCatName(category.getCatId(), category.getName());
     }
 
 

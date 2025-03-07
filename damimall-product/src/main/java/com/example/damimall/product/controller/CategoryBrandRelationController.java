@@ -1,9 +1,17 @@
 package com.example.damimall.product.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.example.damimall.product.entity.BrandEntity;
+import com.example.damimall.product.service.BrandService;
+import com.example.damimall.product.vo.BrandVo;
+import com.example.damimall.product.vo.CategoryBrandRelationVo;
+import org.bouncycastle.LICENSE;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +39,9 @@ public class CategoryBrandRelationController {
     @Autowired
     private CategoryBrandRelationService categoryBrandRelationService;
 
+    @Autowired
+    private BrandService brandService;
+
     /**
      * 列表
      */
@@ -40,6 +51,27 @@ public class CategoryBrandRelationController {
         PageUtils page = categoryBrandRelationService.queryPage(params);
 
         return R.ok().put("page", page);
+    }
+
+    @RequestMapping("/brands/list")
+    // @RequiresPermissions("product:categorybrandrelation:list")
+    public R getBrandList(@RequestParam Long catId){
+        List<CategoryBrandRelationEntity> categoryBrandRelation = categoryBrandRelationService.getBrandListByCatId(catId);
+        List<CategoryBrandRelationVo> vos = new ArrayList<>();
+        for (CategoryBrandRelationEntity en : categoryBrandRelation) {
+            CategoryBrandRelationVo vo = new CategoryBrandRelationVo();
+            BeanUtils.copyProperties(en, vo);
+            vos.add(vo);
+        }
+
+        return R.ok().put("data", vos);
+    }
+
+    @RequestMapping("/catelog/list")
+    public R getRelationCategory(@RequestParam Long brandId){
+        List<CategoryBrandRelationEntity> data = categoryBrandRelationService.getRelationCategory(brandId);
+
+        return R.ok().put("data", data);
     }
 
 
@@ -60,7 +92,7 @@ public class CategoryBrandRelationController {
     @RequestMapping("/save")
     // @RequiresPermissions("product:categorybrandrelation:save")
     public R save(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
-		categoryBrandRelationService.save(categoryBrandRelation);
+		categoryBrandRelationService.saveRealtion(categoryBrandRelation);
 
         return R.ok();
     }

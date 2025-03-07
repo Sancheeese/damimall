@@ -8,6 +8,8 @@
 
 package com.example.common.utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -20,12 +22,12 @@ import java.util.Map;
  */
 public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
-	
+
 	public R() {
 		put("code", 0);
 		put("msg", "success");
 	}
-	
+
 	public static R error() {
 		return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "未知异常，请联系管理员");
 	}
@@ -60,5 +62,21 @@ public class R extends HashMap<String, Object> {
 	public R put(String key, Object value) {
 		super.put(key, value);
 		return this;
+	}
+
+	public int getCode(){
+		return Integer.parseInt(this.get("code").toString());
+	}
+
+	public R setData(Object data){
+		super.put("data", data);
+		return this;
+	}
+
+	public <T> T getData(TypeReference<T> typeReference){
+		Object data = this.get("data");
+		ObjectMapper objectMapper = new ObjectMapper();
+		T t = objectMapper.convertValue(data, typeReference);
+		return t;
 	}
 }

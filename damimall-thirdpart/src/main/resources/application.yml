@@ -1,0 +1,19 @@
+server:
+  port: 12000
+
+spring:
+  application:
+    name: damimall-thirdpart
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+alibaba:
+    cloud:
+      access-key: LTAI5tL8h2tuvc1bxEPSjzdU
+      secret-key: IkidgYlbK2RkLnHOF3OmxM5SBgfkGM
+      oss:
+        bucket: damimall-plus
+        endpoint: oss-cn-shenzhen.aliyuncs.com
+

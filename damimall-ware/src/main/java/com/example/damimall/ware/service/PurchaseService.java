@@ -3,7 +3,10 @@ package com.example.damimall.ware.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.common.utils.PageUtils;
 import com.example.damimall.ware.entity.PurchaseEntity;
+import com.example.damimall.ware.vo.MergeVo;
+import com.example.damimall.ware.vo.PurchaseDoneVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +19,17 @@ import java.util.Map;
 public interface PurchaseService extends IService<PurchaseEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void savePurchase(PurchaseEntity purchase);
+
+    PageUtils listUnreceive(Map<String, Object> params);
+
+    void mergeRequire(MergeVo mergeVo);
+
+    void updatePurchaseById(PurchaseEntity purchase);
+
+    void recevied(List<Long> ids);
+
+    void donePurchase(PurchaseDoneVo purchaseDoneVo);
 }
 
