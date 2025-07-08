@@ -49,5 +49,17 @@
         <result property="modifyTime" column="modify_time"/>
     </resultMap>
 
+    <update id="updateStatusBySn">
+        UPDATE oms_order
+        SET `status` = #{code}
+        WHERE order_sn = #{orderSn}
+    </update>
+
+    <select id="getStatusBySn" resultType="java.lang.Integer">
+        SELECT `status`
+        FROM `oms_order`
+        WHERE order_sn = #{orderSn}
+    </select>
+
 
 </mapper>

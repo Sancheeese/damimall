@@ -1,0 +1,50 @@
+server:
+  port: 21000
+
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: damimall-cart
+  datasource:
+    class-driver-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/damimall_pms?serverTimeZone=UTC
+    username: root
+    password: 159357qazQAZ
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  thymeleaf:
+    cache: false
+
+  redis:
+    host: 192.168.83.129
+    port: 6379
+    password: 123456
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000
+      use-key-prefix: true
+      cache-null-values: true
+
+  cart:
+    thread-pool:
+      core-size: 10
+      maximum-pool-size: 100
+      keep-alive-time: 10
+
+  zipkin:
+    base-url: http://localhost:9411/
+    discoveryClientEnabled: false
+    sender:
+      type: web
+
+  sleuth:
+    sampler:
+      probability: 1

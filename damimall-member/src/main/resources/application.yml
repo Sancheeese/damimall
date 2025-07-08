@@ -1,5 +1,5 @@
 server:
-  port: 14000
+  port: 14001
 
 spring:
   application:
@@ -13,6 +13,19 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+
+  thymeleaf:
+    cache: false
+
+  zipkin:
+    base-url: http://localhost:9411/
+    discoveryClientEnabled: false
+    sender:
+      type: web
+
+  sleuth:
+    sampler:
+      probability: 1
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml

@@ -13,5 +13,24 @@
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
 
+    <resultMap type="com.example.damimall.product.vo.itemVo.AttrGroupItemVo" id="attrGroupItemVoMap">
+        <result property="groupId" column="attr_group_id"/>
+        <result property="groupName" column="attr_group_name"/>
+        <collection property="attrs" ofType="com.example.damimall.product.vo.itemVo.BaseAttrItemVo">
+            <result property="attrId" column="attr_id"/>
+            <result property="attrName" column="attr_name"/>
+            <result property="attrValue" column="attr_value"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="getAttrGroupWithAttr" resultMap="attrGroupItemVoMap">
+        SELECT ag.attr_group_id, ag.attr_group_name, val.attr_id, val.attr_name, val.attr_value FROM pms_attr_group ag
+        left join pms_attr_attrgroup_relation rela on ag.attr_group_id = rela.attr_group_id
+        left join pms_product_attr_value val on val.attr_id = rela.attr_id
+        where val.spu_id = #{spuId}
+        ORDER BY ag.attr_group_id, val.attr_id
+    </select>
+
 
 </mapper>

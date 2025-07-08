@@ -2,6 +2,7 @@ package com.example.damimall.product.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -38,5 +39,23 @@ public class SpuImagesServiceImpl extends ServiceImpl<SpuImagesDao, SpuImagesEnt
             save(spuImage);
         }
     }
+
+    @Override
+    public Map<Long, String> getDefaultImg(List<Long> spuIds) {
+        List<SpuImagesEntity> spuImages = query().in("spu_id", spuIds).list();
+        Map<Long, String> spuImgsMap = new HashMap<>();
+        for (SpuImagesEntity spuImage : spuImages) {
+            if (spuImage.getDefaultImg() == null) {
+                if (!spuImgsMap.containsKey(spuImage.getSpuId()))
+                    spuImgsMap.put(spuImage.getSpuId(), spuImage.getImgUrl());
+            }else{
+                if (spuImage.getDefaultImg() == 1)
+                    spuImgsMap.put(spuImage.getSpuId(), spuImage.getImgUrl());
+            }
+        }
+
+        return spuImgsMap;
+    }
+
 
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProductSaveService {
 
     boolean productUp(List<SkuEsTo> products);
+
+    boolean productUpdate(List<SkuEsTo> products);
 }

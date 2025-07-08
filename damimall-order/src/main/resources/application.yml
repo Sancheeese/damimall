@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: damimall-order
+  main:
+    allow-circular-references: true
   datasource:
     class-driver-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/damimall_oms?serverTimeZone=UTC
@@ -14,9 +16,76 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
 
+  rabbitmq:
+    host: 192.168.83.129
+    port: 5672
+    username: root
+    password: 123456
+    virtual-host: /
+
+  thymeleaf:
+    cache: false
+
+  redis:
+    host: 192.168.83.129
+    port: 6379
+    password: 123456
+
+  order:
+    thread-pool:
+      core-size: 10
+      maximum-pool-size: 100
+      keep-alive-time: 10
+
+  zipkin:
+    base-url: http://localhost:9411/
+    discoveryClientEnabled: false
+    sender:
+      type: web
+
+  sleuth:
+    sampler:
+      probability: 1
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
     db-config:
       id-type: auto
+
+logging:
+  level:
+    root: info
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # Seata 事务组编号，用于 TC 集群名。该配置需要与服务端提到的group相对应，也需要与上面的相对应
+  tx-service-group: tx-group-gz
+  service:
+    vgroup-mapping:
+      tx-group-gz: default
+    default:
+      cluster: default
+
+  # 关闭自动代理
+  enable-auto-data-source-proxy: true
+  data-source-proxy-mode: AT
+  # Seata接入Nacos服务注册中心
+  registry:
+    # support: file, nacos, eureka, redis, zk, consul, etcd3, sofa
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      group: DEFAULT_GROUP
+      namespace: public
+      cluster: default
+      username: nacos
+      password: nacos
+  security:
+    secretKey: SeataSecretKey0c382ef121d778043159209298fd40bf3850a017
+    tokenValidityInMilliseconds: 1800000
+    ignore:
+      urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/api/v1/auth/login
 

@@ -2,15 +2,13 @@ package com.example.damimall.product.controller;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.example.common.to.order.OrderItemTo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.damimall.product.entity.SkuInfoEntity;
 import com.example.damimall.product.service.SkuInfoService;
@@ -93,6 +91,16 @@ public class SkuInfoController {
         SkuInfoEntity skuInfo = skuInfoService.queryOneById(skuId);
 
         return R.ok().put("skuInfo", skuInfo);
+    }
+
+    @PostMapping("/getOrderSkuInfo")
+    public List<OrderItemTo> getOrderSkuInfo(@RequestBody List<Long> skuIds){
+        return skuInfoService.getOrderSkuInfo(skuIds);
+    }
+
+    @PostMapping("/batch/info")
+    public List<SkuInfoEntity> getBatchInfo(@RequestBody List<Long> ids){
+        return skuInfoService.getBatchInfo(ids);
     }
 
 }

@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.example.common.to.auth.OAuth2TokenInfo;
+import com.example.common.to.member.LoginUserTo;
+import com.example.common.to.member.MemberRegisterTo;
 import com.example.damimall.member.feign.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.damimall.member.entity.MemberEntity;
 import com.example.damimall.member.service.MemberService;
@@ -96,4 +96,24 @@ public class MemberController {
         return R.ok();
     }
 
+    @PostMapping("/registerMember")
+    public R register(@RequestBody MemberRegisterTo memberRegisterTo){
+        return memberService.register(memberRegisterTo);
+    }
+
+    @PostMapping("/login")
+    public R login(@RequestBody @Validated LoginUserTo loginUserTo){
+        return memberService.login(loginUserTo);
+    }
+
+    @PostMapping("/oauth2Gitee/login")
+    public R gtieeLogin(@RequestBody OAuth2TokenInfo OAuth2TokenInfo){
+        return memberService.giteeLogin(OAuth2TokenInfo);
+    }
+
+    @PostMapping("/hello")
+    public R hello(){
+        System.out.println("hello");
+        return R.ok();
+    }
 }

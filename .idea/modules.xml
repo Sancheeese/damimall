@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/damimall-auth-server/damimall-auth-server.iml" filepath="$PROJECT_DIR$/damimall-auth-server/damimall-auth-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-cart/damimall-cart.iml" filepath="$PROJECT_DIR$/damimall-cart/damimall-cart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-common/damimall-common.iml" filepath="$PROJECT_DIR$/damimall-common/damimall-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-coupon/damimall-coupon.iml" filepath="$PROJECT_DIR$/damimall-coupon/damimall-coupon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-gateway/damimall-gateway.iml" filepath="$PROJECT_DIR$/damimall-gateway/damimall-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-member/damimall-member.iml" filepath="$PROJECT_DIR$/damimall-member/damimall-member.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-order/damimall-order.iml" filepath="$PROJECT_DIR$/damimall-order/damimall-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-product/damimall-product.iml" filepath="$PROJECT_DIR$/damimall-product/damimall-product.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-search/damimall-search.iml" filepath="$PROJECT_DIR$/damimall-search/damimall-search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-seckill/damimall-seckill.iml" filepath="$PROJECT_DIR$/damimall-seckill/damimall-seckill.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-thirdpart/damimall-thirdpart.iml" filepath="$PROJECT_DIR$/damimall-thirdpart/damimall-thirdpart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/damimall-ware/damimall-ware.iml" filepath="$PROJECT_DIR$/damimall-ware/damimall-ware.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-fast/renren-fast.iml" filepath="$PROJECT_DIR$/renren-fast/renren-fast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-generator/renren-generator.iml" filepath="$PROJECT_DIR$/renren-generator/renren-generator.iml" />
+    </modules>
+  </component>
+</project>

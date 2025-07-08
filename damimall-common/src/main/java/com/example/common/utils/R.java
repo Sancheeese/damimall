@@ -79,4 +79,13 @@ public class R extends HashMap<String, Object> {
 		T t = objectMapper.convertValue(data, typeReference);
 		return t;
 	}
+
+	public <T> T getWithKey(String key, TypeReference<T> typeReference){
+		Object data = this.get(key);
+		ObjectMapper objectMapper = new ObjectMapper();
+		T t = objectMapper.convertValue(data, typeReference);
+		return t;
+	}
+
+
 }

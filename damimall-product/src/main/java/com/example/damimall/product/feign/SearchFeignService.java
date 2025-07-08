@@ -11,4 +11,7 @@ import java.util.List;
 public interface SearchFeignService {
     @RequestMapping("/elasticsearch/saveProduct")
     public boolean saveProduct(@RequestBody List<SkuEsTo> products);
+
+    @RequestMapping("/elasticsearch/updateProduct")
+    public boolean updateProduct(@RequestBody List<SkuEsTo> products);
 }

@@ -27,6 +27,12 @@ public class EsController {
         return success;
     }
 
+    @RequestMapping("/updateProduct")
+    public boolean updateProduct(@RequestBody List<SkuEsTo> products){
+        boolean success = productSaveService.productUpdate(products);
+        return success;
+    }
+
     @RequestMapping("/hello")
     public String Hello(){
         return "hello";

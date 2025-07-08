@@ -10,6 +10,7 @@ import com.example.damimall.product.service.AttrService;
 import com.example.damimall.product.service.CategoryService;
 import com.example.damimall.product.vo.AttrGroupWithAttrVo;
 import com.example.damimall.product.vo.AttrVo;
+import com.example.damimall.product.vo.itemVo.AttrGroupItemVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Autowired
     AttrAttrgroupRelationService attrAttrgroupRelationService;
+
+    @Autowired
+    AttrGroupDao attrGroupDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -103,6 +107,14 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             }
 
         return vos;
+    }
+
+    @Override
+    public List<AttrGroupItemVo> getAttrGroupWithAttr(Long spuId) {
+        // 三表联查
+        List<AttrGroupItemVo> attrGroupItemVos = attrGroupDao.getAttrGroupWithAttr(spuId);
+
+        return attrGroupItemVos;
     }
 
     public void setCategoryPath(AttrGroupEntity ag){

@@ -41,6 +41,7 @@ public class SkuEsTo {
 
         private String attrName;
 
-        private String attrValue;
+//        private String attrValue;
+        private List<String> attrValue;
     }
 }

@@ -27,6 +27,9 @@ public class ProductAttrValueServiceImpl extends ServiceImpl<ProductAttrValueDao
     @Autowired
     AttrService attrService;
 
+    @Autowired
+    ProductAttrValueDao productAttrValueDao;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<ProductAttrValueEntity> page = this.page(
@@ -66,6 +69,11 @@ public class ProductAttrValueServiceImpl extends ServiceImpl<ProductAttrValueDao
                 .collect(Collectors.toList());
 
         return searchAttrs;
+    }
+
+    @Override
+    public List<String> getNameAndValue(Long skuId) {
+        return productAttrValueDao.getNameAndValue(skuId);
     }
 
 }

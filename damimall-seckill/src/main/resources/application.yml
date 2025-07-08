@@ -1,0 +1,65 @@
+server:
+  port: 16000
+  tomcat:
+    max-threads: 1000
+    max-connections: 10000
+
+spring:
+  application:
+    name: damimall-seckill
+  main:
+    allow-circular-references: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8333
+
+  rabbitmq:
+    host: 192.168.83.129
+    port: 5672
+    username: root
+    password: 123456
+    virtual-host: /
+    publisher-confirm-type: correlated # 开启生产者 Confirm 模式
+    publisher-returns: true # 开启 Return 模式
+
+  redis:
+    host: 192.168.83.129
+    port: 6379
+    password: 123456
+
+  task:
+    execution:
+      poll:
+        core-size: 10
+        max-size: 20
+
+  thymeleaf:
+    cache: false
+
+  seckill:
+    thread-pool:
+      core-size: 10
+      maximum-pool-size: 100
+      keep-alive-time: 10
+
+  zipkin:
+    base-url: http://localhost:9411/
+    discoveryClientEnabled: false
+    sender:
+      type: web
+
+  sleuth:
+    sampler:
+      probability: 1
+
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+

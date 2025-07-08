@@ -20,6 +20,10 @@
         <result property="wareId" column="ware_id"/>
         <result property="taskComment" column="task_comment"/>
     </resultMap>
+    <select id="getIdByOrderSn" resultType="java.lang.Long">
+        SELECT id FROM `wms_ware_order_task`
+        WHERE order_sn = #{orderSn}
+    </select>
 
 
 </mapper>

@@ -8,13 +8,31 @@
         <result property="id" column="id"/>
         <result property="spuName" column="spu_name"/>
         <result property="spuDescription" column="spu_description"/>
-        <result property="catalogId" column="catalog_id"/>
+        <result property="catelogId" column="catalog_id"/>
         <result property="brandId" column="brand_id"/>
         <result property="weight" column="weight"/>
         <result property="publishStatus" column="publish_status"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+
+    <select id="getWeight" resultType="com.example.common.to.product.WeightTo">
+        SELECT sku.sku_id id, spu.weight weight FROM pms_spu_info spu
+        LEFT JOIN pms_sku_info sku ON sku.spu_id = spu.id
+        WHERE sku.sku_id IN
+        <foreach collection="skuId" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getBatchSpuBySkuId" resultType="java.util.Map">
+        SELECT sku.sku_id, spu.id, spu.spu_name, spu.brand_id, spu.catelog_id FROM pms_sku_info sku
+        LEFT JOIN pms_spu_info spu ON sku.spu_id = spu.id
+        WHERE sku.sku_id IN
+        <foreach collection="skuId" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
 
 
 </mapper>

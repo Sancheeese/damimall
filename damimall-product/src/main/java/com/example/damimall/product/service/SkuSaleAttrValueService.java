@@ -3,6 +3,7 @@ package com.example.damimall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.common.utils.PageUtils;
 import com.example.damimall.product.entity.SkuSaleAttrValueEntity;
+import com.example.damimall.product.vo.itemVo.SaleAttrItemVo;
 
 import java.util.List;
 import java.util.Map;
@@ -19,5 +20,7 @@ public interface SkuSaleAttrValueService extends IService<SkuSaleAttrValueEntity
     PageUtils queryPage(Map<String, Object> params);
 
     void saveSkuSaleAttrValue(List<SkuSaleAttrValueEntity> skuSaleAttrValues);
+
+    List<SaleAttrItemVo> getSaleAttrItemBySpuId(Long spuId);
 }
 

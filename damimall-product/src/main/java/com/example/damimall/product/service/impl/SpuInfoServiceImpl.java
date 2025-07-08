@@ -3,6 +3,7 @@ package com.example.damimall.product.service.impl;
 import com.example.common.constant.ProductConstant;
 import com.example.common.to.SkuReductionTo;
 import com.example.common.to.SpuBoundTo;
+import com.example.common.to.product.WeightTo;
 import com.example.common.to.search.SkuEsTo;
 import com.example.common.to.ware.SkuStockTo;
 import com.example.common.utils.ParamUtils;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service("spuInfoService")
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> implements SpuInfoService {
+    @Autowired
+    SpuInfoDao spuInfoDao;
+
     @Autowired
     private SpuInfoDescService spuInfoDescService;
 
@@ -90,6 +95,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         // 保存基本信息
         SpuInfoEntity spuInfo = new SpuInfoEntity();
         BeanUtils.copyProperties(spuVo, spuInfo);
+        spuInfo.setCatelogId(spuVo.getCatalogId());
         spuInfo.setCreateTime(new Date());
         spuInfo.setUpdateTime(new Date());
         save(spuInfo);
@@ -98,7 +104,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         // 描述
         SpuInfoDescEntity spuInfoDesc = new SpuInfoDescEntity();
         spuInfoDesc.setSpuId(spuId);
-        spuInfoDesc.setDecript(spuVo.getSpuDescription());
+        spuInfoDesc.setDecript(String.join(",", spuVo.getDecript()));
         spuInfoDescService.saveSpuInfoDesc(spuInfoDesc);
 
         // 图片集
@@ -236,6 +242,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 .map(attr -> {
                     SkuEsTo.Attr searchAttr = new SkuEsTo.Attr();
                     BeanUtils.copyProperties(attr, searchAttr);
+                    List<String> values = new ArrayList<>();
+                    for (String value : attr.getAttrValue().split(";")) {
+                        values.add(value);
+                    }
+                    searchAttr.setAttrValue(values);
                     return searchAttr;
                 }).collect(Collectors.toList());
 
@@ -301,7 +312,33 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         }else{
             log.error("商品上架保存至elasticsearch出错");
         }
+    }
 
-        Deque q;
+    @Override
+    public Map<Long, String> getWeight(List<Long> skuId) {
+        Map<Long, String> weight = new HashMap<>();
+        if (skuId == null || skuId.isEmpty()) return weight;
+        weight = spuInfoDao.getWeight(skuId)
+                .stream()
+                .collect(Collectors.toMap(WeightTo::getId, WeightTo::getWeight));
+        return weight;
+    }
+
+    @Override
+    public Map<Long, SpuInfoEntity> getBatchSpuBySkuId(List<Long> spuIds) {
+        Map<Long, Map<String, Object>> sku2map = spuInfoDao.getBatchSpuBySkuId(spuIds);
+        Map<Long, SpuInfoEntity> sku2spu = new HashMap<>();
+        for (Map.Entry<Long, Map<String, Object>> entry : sku2map.entrySet()) {
+            SpuInfoEntity spuInfo = new SpuInfoEntity();
+            Map<String, Object> map = entry.getValue();
+            spuInfo.setId(Long.parseLong(map.get("id").toString()));
+            spuInfo.setSpuName(map.get("spu_name").toString());
+            spuInfo.setBrandId(Long.parseLong(map.get("brand_id").toString()));
+            spuInfo.setCatelogId(Long.parseLong(map.get("catelog_id").toString()));
+
+            sku2spu.put(entry.getKey(), spuInfo);
+        }
+
+        return sku2spu;
     }
 }

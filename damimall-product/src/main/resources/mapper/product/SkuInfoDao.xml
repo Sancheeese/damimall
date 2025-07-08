@@ -9,7 +9,7 @@
         <result property="spuId" column="spu_id"/>
         <result property="skuName" column="sku_name"/>
         <result property="skuDesc" column="sku_desc"/>
-        <result property="catalogId" column="catalog_id"/>
+        <result property="catelogId" column="catelog_id"/>
         <result property="brandId" column="brand_id"/>
         <result property="skuDefaultImg" column="sku_default_img"/>
         <result property="skuTitle" column="sku_title"/>
@@ -17,6 +17,12 @@
         <result property="price" column="price"/>
         <result property="saleCount" column="sale_count"/>
     </resultMap>
+    <select id="getSkuIdsByCatId" resultType="java.lang.Long">
+        select sku_id from pms_sku_info where catelog_id = #{catId}
+    </select>
+    <select id="getSkuIdsByBrandId" resultType="java.lang.Long">
+        select sku_id from pms_sku_info where brand_id = #{brandId}
+    </select>
 
 
 </mapper>

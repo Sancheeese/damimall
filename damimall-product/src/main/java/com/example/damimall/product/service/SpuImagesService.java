@@ -19,5 +19,7 @@ public interface SpuImagesService extends IService<SpuImagesEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     void saveBySpuId(Long spuId, List<String> images);
+
+    Map<Long, String> getDefaultImg(List<Long> spuIds);
 }
 

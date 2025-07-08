@@ -1,7 +1,16 @@
 package com.example.common.constant;
 
+import java.util.Queue;
+
 public class ProductConstant {
-    public static final String PRODUCT_INDEX = "product";
+    public static final String PRODUCT_INDEX = "damimall_product";
+    public static final String PRODUCT_3LEVEL_CAT_CACHE_KEY = "product:3levelcat";
+    public static final String PRODUCT_3LEVEL_EMPTY_VALUE = "";
+    public static final String PRODUCT_3LEVEL_LOCK = "product:3levelcat:lock";
+
+    public static final Integer PAGE_SIZE = 20;
+
+
 
     public enum AttrType{
         ATTR_TYPE_BASE(1, "基本属性"),

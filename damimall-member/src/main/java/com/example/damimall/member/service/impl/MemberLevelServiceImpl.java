@@ -1,5 +1,7 @@
 package com.example.damimall.member.service.impl;
 
+import com.example.damimall.member.dao.MemberDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,6 +17,8 @@ import com.example.damimall.member.service.MemberLevelService;
 
 @Service("memberLevelService")
 public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLevelEntity> implements MemberLevelService {
+    @Autowired
+    MemberDao memberDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -24,6 +28,12 @@ public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLe
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public Long getDefaultLevelId() {
+        Long id = memberDao.getDefaultLevelId();
+        return id;
     }
 
 }

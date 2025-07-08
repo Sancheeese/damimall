@@ -1,6 +1,7 @@
 package com.example.damimall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -65,7 +66,7 @@ public class SpuInfoController {
     }
 
     /**
-     * 上架商品
+     * 修改商品
      */
     @RequestMapping("/update")
     // @RequiresPermissions("product:spuinfo:update")
@@ -91,6 +92,12 @@ public class SpuInfoController {
         spuInfoService.spuUp(spuId);
 
         return R.ok();
+    }
+
+    @PostMapping("/getWeight")
+    public R getWeight(@RequestBody List<Long> skuId){
+        Map<Long, String> weight = spuInfoService.getWeight(skuId);
+        return R.ok().setData(weight);
     }
 
 }

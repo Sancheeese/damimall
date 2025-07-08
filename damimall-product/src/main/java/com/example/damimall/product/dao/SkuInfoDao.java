@@ -3,6 +3,9 @@ package com.example.damimall.product.dao;
 import com.example.damimall.product.entity.SkuInfoEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * sku信息
@@ -13,5 +16,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SkuInfoDao extends BaseMapper<SkuInfoEntity> {
-	
+
+    List<Long> getSkuIdsByCatId(@Param("catId") Long catId);
+
+    List<Long> getSkuIdsByBrandId(@Param("brandId") Long brandId);
 }

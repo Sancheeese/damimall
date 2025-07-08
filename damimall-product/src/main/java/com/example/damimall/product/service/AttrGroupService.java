@@ -5,6 +5,7 @@ import com.example.common.utils.PageUtils;
 import com.example.damimall.product.entity.AttrAttrgroupRelationEntity;
 import com.example.damimall.product.entity.AttrGroupEntity;
 import com.example.damimall.product.vo.AttrGroupWithAttrVo;
+import com.example.damimall.product.vo.itemVo.AttrGroupItemVo;
 
 import java.util.List;
 import java.util.Map;
@@ -25,5 +26,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
     AttrGroupEntity getInfo(Long attrGroupId);
 
     List<AttrGroupWithAttrVo> getAllGroupWithAttr(Long catId);
+
+    List<AttrGroupItemVo> getAttrGroupWithAttr(Long spuId);
 }
 

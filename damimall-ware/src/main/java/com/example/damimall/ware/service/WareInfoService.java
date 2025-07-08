@@ -3,6 +3,7 @@ package com.example.damimall.ware.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.common.utils.PageUtils;
 import com.example.damimall.ware.entity.WareInfoEntity;
+import com.example.damimall.ware.vo.FareVo;
 
 import java.util.Map;
 
@@ -18,5 +19,7 @@ public interface WareInfoService extends IService<WareInfoEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     PageUtils listByCondition(Map<String, Object> params);
+
+    FareVo getFare(Long addressId);
 }
 

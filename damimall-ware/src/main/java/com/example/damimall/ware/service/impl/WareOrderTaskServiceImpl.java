@@ -1,5 +1,6 @@
 package com.example.damimall.ware.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,6 +16,8 @@ import com.example.damimall.ware.service.WareOrderTaskService;
 
 @Service("wareOrderTaskService")
 public class WareOrderTaskServiceImpl extends ServiceImpl<WareOrderTaskDao, WareOrderTaskEntity> implements WareOrderTaskService {
+    @Autowired
+    WareOrderTaskDao wareOrderTaskDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -24,6 +27,11 @@ public class WareOrderTaskServiceImpl extends ServiceImpl<WareOrderTaskDao, Ware
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public Long getIdByOrderSn(String orderSn) {
+        return wareOrderTaskDao.getIdByOrderSn(orderSn);
     }
 
 }

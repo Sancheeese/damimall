@@ -1,8 +1,10 @@
 package com.example.damimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.common.to.order.OrderItemTo;
 import com.example.common.utils.PageUtils;
 import com.example.damimall.product.entity.SkuInfoEntity;
+import com.example.damimall.product.vo.itemVo.SkuItemVo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,5 +26,11 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
     PageUtils listByCondition(Map<String, Object> params);
 
     SkuInfoEntity queryOneById(Long skuId);
+
+    SkuItemVo item(Long skuId);
+
+    List<OrderItemTo> getOrderSkuInfo(List<Long> skuIds);
+
+    List<SkuInfoEntity> getBatchInfo(List<Long> ids);
 }
 

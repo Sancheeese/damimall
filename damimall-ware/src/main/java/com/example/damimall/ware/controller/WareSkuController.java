@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.example.common.exception.BizCodeEnum;
 import com.example.common.to.ware.SkuStockTo;
+import com.example.damimall.ware.exception.NoStockException;
+import com.example.damimall.ware.vo.WareSkuLockVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.damimall.ware.entity.WareSkuEntity;
 import com.example.damimall.ware.service.WareSkuService;
@@ -97,6 +96,26 @@ public class WareSkuController {
         List<SkuStockTo> skuStockTos = wareSkuService.queryStockByIds(skuIds);
 
         return R.ok().setData(skuStockTos);
+    }
+
+    /**
+     * 锁定库存
+     * @return
+     */
+    @PostMapping("/lockStock")
+    public R lockStock(@RequestBody WareSkuLockVo wareSkuLockVo){
+        try {
+            wareSkuService.lockStock(wareSkuLockVo);
+            return R.ok();
+        }catch (NoStockException e){
+            return R.error(BizCodeEnum.NO_STOCK_EXCEPTION.getCode(), BizCodeEnum.NO_STOCK_EXCEPTION.getMsg());
+        }
+    }
+
+    @GetMapping("/hello")
+    public String hello(){
+        System.out.println("hello");
+        return "hello";
     }
 
 }

@@ -1,7 +1,11 @@
 package com.example.damimall.product.service.impl;
 
+import com.alibaba.nacos.shaded.org.checkerframework.checker.units.qual.A;
+import com.example.common.to.search.SkuEsTo;
 import com.example.damimall.product.dao.CategoryBrandRelationDao;
+import com.example.damimall.product.dao.SkuInfoDao;
 import com.example.damimall.product.entity.CategoryBrandRelationEntity;
+import com.example.damimall.product.feign.SearchFeignService;
 import com.example.damimall.product.service.CategoryBrandRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +30,12 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     @Autowired
     CategoryBrandRelationDao categoryBrandRelationDao;
 
+    @Autowired
+    SkuInfoDao skuInfoDao;
+
+    @Autowired
+    SearchFeignService searchFeignService;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<BrandEntity> page = this.page(
@@ -43,6 +53,17 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
 
         // 更新相关的表
         categoryBrandRelationDao.updateBrandName(brand.getBrandId(), brand.getName());
+
+        // 更新es
+        List<Long> skuIds = skuInfoDao.getSkuIdsByBrandId(brand.getBrandId());
+        List<SkuEsTo> skuEsTos = skuIds.stream().map(id -> {
+            SkuEsTo skuEsTo = new SkuEsTo();
+            skuEsTo.setSkuId(id);
+            skuEsTo.setBrandName(brand.getName());
+            skuEsTo.setBrandImg(brand.getLogo());
+            return skuEsTo;
+        }).collect(Collectors.toList());
+        searchFeignService.updateProduct(skuEsTos);
     }
 
 }

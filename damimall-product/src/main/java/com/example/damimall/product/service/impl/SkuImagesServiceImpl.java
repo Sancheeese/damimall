@@ -1,8 +1,10 @@
 package com.example.damimall.product.service.impl;
 
 import com.example.common.utils.BatchOptUtils;
+import com.example.damimall.product.entity.SpuImagesEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -32,6 +34,23 @@ public class SkuImagesServiceImpl extends ServiceImpl<SkuImagesDao, SkuImagesEnt
     @Override
     public void saveImages(List<SkuImagesEntity> skuImages) {
         new BatchOptUtils<SkuImagesEntity>().saveBatch(this, skuImages, 1000);
+    }
+
+    @Override
+    public Map<Long, String> getDefaultImg(List<Long> skuIds) {
+        Map<Long, String> id2Img = new HashMap<>();
+        List<SkuImagesEntity> skuImgs = query().in("sku_id", skuIds).list();
+        for (SkuImagesEntity skuImg : skuImgs) {
+            if (skuImg.getDefaultImg() == null) {
+                if (!id2Img.containsKey(skuImg.getSkuId()))
+                    id2Img.put(skuImg.getSkuId(), skuImg.getImgUrl());
+            }else{
+                if (skuImg.getDefaultImg() == 1)
+                    id2Img.put(skuImg.getSkuId(), skuImg.getImgUrl());
+            }
+        }
+
+        return id2Img;
     }
 
 }

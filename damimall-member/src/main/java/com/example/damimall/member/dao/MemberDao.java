@@ -3,6 +3,7 @@ package com.example.damimall.member.dao;
 import com.example.damimall.member.entity.MemberEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 会员
@@ -13,5 +14,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface MemberDao extends BaseMapper<MemberEntity> {
-	
+
+    Long getDefaultLevelId();
+
+    String getPasswordByAccount(@Param("account") String account);
 }

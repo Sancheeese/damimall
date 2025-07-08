@@ -12,10 +12,38 @@
         <result property="skuName" column="sku_name"/>
         <result property="stockLocked" column="stock_locked"/>
     </resultMap>
+    <resultMap id="skuWareMap" type="com.example.damimall.ware.vo.SkuWareVo">
+        <id column="sku_id" property="skuId"/>
+        <collection property="wareId" javaType="ArrayList" ofType="java.lang.Long">
+            <result column="ware_id" property="value"/>
+        </collection>
+    </resultMap>
+
+    <update id="lockSkuStock">
+        UPDATE wms_ware_sku
+        SET stock_locked = stock_locked + #{count}
+        WHERE sku_id = #{skuId} AND ware_id = #{wareId} AND stock - stock_locked >= #{count}
+    </update>
+    <update id="unlockStock">
+        <foreach collection="details" item="detail">
+            UPDATE wms_ware_sku
+            SET stock_locked = stock_locked - #{detail.skuNum}
+            WHERE sku_id = #{detail.skuId} AND ware_id = #{detail.wareId}
+        </foreach>
+    </update>
 
     <select id="queryStockById" resultType="com.example.damimall.ware.entity.WareSkuEntity">
         SELECT sku_id, sku_name, SUM(stock - stock_locked) as stock FROM `wms_ware_sku`
         where sku_id = #{id}
+    </select>
+    <select id="getAvailableWare" resultMap="skuWareMap">
+        SELECT sku_id, ware_id FROM wms_ware_sku
+        WHERE sku_id IN
+        <foreach collection="skuIds" item="skuId" open="(" close=")" separator=",">
+            #{skuId}
+        </foreach>
+        AND stock - stock_locked > 0
+        GROUP BY sku_id
     </select>
 
 

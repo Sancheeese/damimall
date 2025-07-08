@@ -13,6 +13,11 @@
         <result property="attrSort" column="attr_sort"/>
         <result property="quickShow" column="quick_show"/>
     </resultMap>
+    <select id="getNameAndValue" resultType="java.lang.String">
+        SELECT CONCAT(attr_name, ":", attr_value)
+        FROM `pms_sku_sale_attr_value`
+        WHERE sku_id = #{skuId}
+    </select>
 
 
 </mapper>

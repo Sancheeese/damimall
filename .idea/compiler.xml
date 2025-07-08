@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="damimall-search" />
+        <module name="damimall-common" />
+        <module name="damimall-cart" />
+        <module name="damimall-member" />
+        <module name="damimall-order" />
+        <module name="damimall-ware" />
+        <module name="renren-generator" />
+        <module name="damimall-coupon" />
+        <module name="damimall-auth-server" />
+        <module name="renren-fast" />
+        <module name="damimall-gateway" />
+        <module name="damimall-thirdpart" />
+        <module name="damimall-product" />
+        <module name="damimall-seckill" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="renren-fast" options="-parameters" />
+      <module name="renren-generator" options="-parameters" />
+    </option>
+  </component>
+</project>

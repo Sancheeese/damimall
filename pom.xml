@@ -24,6 +24,9 @@
         <module>damimall-gateway</module>
         <module>damimall-thirdpart</module>
         <module>damimall-search</module>
+        <module>damimall-auth-server</module>
+        <module>damimall-cart</module>
+        <module>damimall-seckill</module>
     </modules>
 
 <!--    默认jdk1.8-->
